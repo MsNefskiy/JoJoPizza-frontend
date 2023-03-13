@@ -1,1 +1,1 @@
-# JoJoPizza-frontend
+JoJo Pizza - frontend
