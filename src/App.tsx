@@ -1,11 +1,16 @@
-import MainPage from "./pages/MainPage"
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
+import "./scss/app.scss";
 
 function App() {
   return (
-    <div>
-        <MainPage/>
-    </div>
-  )
+    <>
+      <div className="wrapper">
+        <Header />
+        <Outlet/>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
