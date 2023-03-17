@@ -2,6 +2,7 @@ import styles from "../scss/components/Header.module.scss";
 import styleButton from "../scss/components/Button.module.scss";
 import cn from "classnames";
 import { Link } from "react-router-dom";
+import Search from "./Search";
 
 function Header() {
   return (
@@ -17,6 +18,7 @@ function Header() {
               </div>
             </div>
           </Link>
+          <Search />
           <div className={styles.headerCart}>
             <Link to='cart' className={cn(styleButton.button, styleButton.buttonCart)}>
               <span>520 ₽</span>
