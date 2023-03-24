@@ -1,16 +1,26 @@
-import { useState } from 'react';
-import styles from '../scss/components/Categories.module.scss';
+import styles from "../scss/components/Categories.module.scss";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setCategoryId } from "../redux/filter/slice";
+
+const categories = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
 
 function Categories() {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+  const dispacth = useAppDispatch();
+  const categoryId = useAppSelector((state) => state.filter.categoryId);
 
   const onClickCategory = (index: number) => {
-    setActiveCategory(index);
+    dispacth(setCategoryId(index));
   };
 
   const setActiveCategoryStyle = (index: number) => {
-    return activeCategory === index ? styles.Active : '';
+    return categoryId === index ? styles.Active : "";
   };
 
   return (

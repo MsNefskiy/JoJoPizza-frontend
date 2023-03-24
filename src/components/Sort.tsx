@@ -1,28 +1,54 @@
-import { useState } from 'react';
-import styles from '../scss/components/Sort.module.scss';
+import styles from "../scss/components/Sort.module.scss";
+import { useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setSortType } from "../redux/filter/slice";
+
+const listItems = [
+  {
+    name: "алфавиту",
+    property: "title",
+  },
+  {
+    name: "цене",
+    property: "price",
+  },
+];
 
 function Sort() {
   const [openPopup, setOpenPopup] = useState(false);
-  const [selectedSortItem, setSortItem] = useState(0);
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const listItems = ['популярности', 'цене', 'алфавиту'];
-  const sortItem = listItems[selectedSortItem];
+  const sort = useAppSelector((state) => state.filter.sort);
+  const dispacth = useAppDispatch();
 
   const onClickPopup = () => {
     setOpenPopup(!openPopup);
   };
 
   const onClickListItem = (index: number) => {
-    setSortItem(index);
+    dispacth(setSortType(listItems[index]));
     setOpenPopup(false);
   };
 
-  const setSelectedItemStyle = (index: number) => {
-    return selectedSortItem === index ? styles.activeListItem : '';
+  const setSelectedItemStyle = (property: string) => {
+    return sort.property === property ? styles.activeListItem : "";
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event:  MouseEvent) => {
+      const paths = event.composedPath();
+      if (sortRef.current && !paths.includes(sortRef.current)) {
+        setOpenPopup(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
-    <div className={styles.sort}>
+    <div ref={sortRef} className={styles.sort}>
       <div className={styles.sortLabel}>
         <svg
           width="10"
@@ -37,14 +63,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => onClickPopup()}>{sortItem}</span>
+        <span onClick={() => onClickPopup()}>{sort.name}</span>
       </div>
       {openPopup && (
         <div className={styles.sortPopup}>
           <ul>
             {listItems.map((listItem, index) => (
-              <li onClick={() => onClickListItem(index)} className={setSelectedItemStyle(index)}>
-                {listItem}
+              <li
+                key={index}
+                onClick={() => onClickListItem(index)}
+                className={setSelectedItemStyle(listItem.property)}
+              >
+                {listItem.name}
               </li>
             ))}
           </ul>
