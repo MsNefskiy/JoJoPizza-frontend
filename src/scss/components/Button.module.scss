@@ -122,6 +122,17 @@
         height: 25px;
         background-color: rgba(255, 255, 255, 0.25);
         margin-left: 14px;
-        margin-right: 14px;    
+        margin-right: 14px;
+    }
+
+    &Circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        padding: 0;
+        border-width: 2px;
     }
 }
