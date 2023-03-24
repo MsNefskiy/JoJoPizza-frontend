@@ -3,8 +3,11 @@ import styleButton from "../scss/components/Button.module.scss";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import { useAppSelector } from "../redux/hooks";
 
 function Header() {
+  const { totalCount, totalPrice } = useAppSelector((state) => state.cart);
+
   return (
     <>
       <div className={styles.header}>
@@ -20,8 +23,11 @@ function Header() {
           </Link>
           <Search />
           <div className={styles.headerCart}>
-            <Link to='cart' className={cn(styleButton.button, styleButton.buttonCart)}>
-              <span>520 ₽</span>
+            <Link
+              to="cart"
+              className={cn(styleButton.button, styleButton.buttonCart)}
+            >
+              <span>{totalPrice}</span>
               <div className={styleButton.buttonDelimiter}></div>
               <svg
                 width="18"
@@ -52,7 +58,7 @@ function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>3</span>
+              <span>{totalCount}</span>
             </Link>
           </div>
         </div>
