@@ -1,9 +1,14 @@
-import styles from '../scss/components/ProductBlock.module.scss';
-import styleButton from '../scss/components/Button.module.scss';
-import cn from 'classnames';
-import { useState } from 'react';
+import styles from "../scss/components/ProductBlock.module.scss";
+import styleButton from "../scss/components/Button.module.scss";
+import cn from "classnames";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Link } from "react-router-dom";
+import { CartItem } from "../redux/cart/types";
+import { addItem } from "../redux/cart/slice";
 
 interface ProductBlockProps {
+  id: string;
   title: string;
   image: string;
   types?: number[];
@@ -11,13 +16,36 @@ interface ProductBlockProps {
   price: number;
 }
 
-function ProductBlock({ title, image, types, sizes, price }: ProductBlockProps) {
-  const typeName = ['Тонкое', 'Традиционное'];
-  if (types === undefined) {
-    types = [];
-  }
-  const [activeType, setActiveType] = useState(types[0] === 0 ? 0 : 1);
+function ProductBlock(props: ProductBlockProps) {
+  let { id, title, image, types, sizes, price } = props;
+
+  const typeName = ["Тонкое", "Традиционное"];
+
+  const [activeType, setActiveType] = useState(types?.[0] === 0 ? 0 : 1);
   const [activeSize, setActiveSize] = useState(0);
+
+  const type = typeName[activeType];
+  const size = sizes?.[activeSize];
+  const itemId = id + type + size;
+
+  const cartItem = useAppSelector((state) =>
+    state.cart.items.find((item) => item.itemId === itemId)
+  );
+  const addedCount = cartItem ? cartItem.count : 0;
+  const dispacth = useAppDispatch();
+
+  const onClickAdd = () => {
+    const item: CartItem = {
+      itemId,
+      title,
+      image,
+      price,
+      type,
+      size,
+      count: 1,
+    };
+    dispacth(addItem(item));
+  };
 
   const onClickType = (index: number) => {
     setActiveType(index);
@@ -28,22 +56,28 @@ function ProductBlock({ title, image, types, sizes, price }: ProductBlockProps) 
   };
 
   const setActiveTypeStyle = (index: number) => {
-    return activeType === index ? styles.active : '';
+    return activeType === index ? styles.active : "";
   };
 
   const setActiveSizeStyle = (index: number) => {
-    return activeSize === index ? styles.active : '';
+    return activeSize === index ? styles.active : "";
   };
 
   return (
     <div className={styles.productBlock}>
-      <img src={image} alt="ProductImg" />
-      <h4 className={styles.productBlockTitle}>{title}</h4>
+      <Link to={`/product/${id}`}>
+        <img src={image} alt="ProductImg" />
+        <h4 className={styles.productBlockTitle}>{title}</h4>
+      </Link>
       <div className={styles.productBlockSelector}>
         <ul>
           {types &&
             types.map((typeId) => (
-              <li key={typeId} onClick={() => onClickType(typeId)} className={setActiveTypeStyle(typeId)}>
+              <li
+                key={typeId}
+                onClick={() => onClickType(typeId)}
+                className={setActiveTypeStyle(typeId)}
+              >
                 {typeName[typeId]}
               </li>
             ))}
@@ -51,7 +85,11 @@ function ProductBlock({ title, image, types, sizes, price }: ProductBlockProps) 
         <ul>
           {sizes &&
             sizes.map((size, index) => (
-              <li key={index} onClick={() => onClickSize(index)} className={setActiveSizeStyle(index)}>
+              <li
+                key={index}
+                onClick={() => onClickSize(index)}
+                className={setActiveSizeStyle(index)}
+              >
                 {size} см.
               </li>
             ))}
@@ -60,8 +98,13 @@ function ProductBlock({ title, image, types, sizes, price }: ProductBlockProps) 
       <div className={styles.productBlockBottom}>
         <div className={styles.productBlockPrice}>от {price} ₽</div>
         <button
+          onClick={onClickAdd}
           type="button"
-          className={cn(styleButton.button, styleButton.buttonOutline, styleButton.buttonAdd)}
+          className={cn(
+            styleButton.button,
+            styleButton.buttonOutline,
+            styleButton.buttonAdd
+          )}
         >
           <svg
             width="12"
@@ -76,7 +119,7 @@ function ProductBlock({ title, image, types, sizes, price }: ProductBlockProps) 
             />
           </svg>
           <span>В корзину</span>
-          <i>2</i>
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>
