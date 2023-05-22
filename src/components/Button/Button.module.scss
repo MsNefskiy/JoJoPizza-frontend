@@ -1,0 +1,135 @@
+.button {
+    // background-color: #fe5f1e;
+    background-color: rgb(202, 22, 142);
+    border-radius: 30px;
+    padding: 10px 20px;
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    border: 1px solid transparent;
+
+    &,
+    span {
+        color: #fff;
+    }
+
+    i,
+    span,
+    path,
+    svg {
+        transition: all 0.15s ease-in-out;
+    }
+
+    &:hover {
+        background-color: darken(rgb(202, 22, 142), 20%);
+    }
+
+    &:active {
+        background-color: darken(rgb(202, 22, 142), 12%);
+        transform: translateY(1px);
+    }
+
+    &Outline {
+        background-color: #fff;
+        border: 2px solid #9642d3;
+        color: #9642d3;
+        &,
+        span {
+            color: #9642d3;
+        }
+
+        svg {
+            path {
+                fill: #9642d3;
+            }
+        }
+
+        &:hover {
+            background-color: #9642d3;
+            color: #fff;
+
+            &,
+            span {
+                color: #fff;
+            }
+
+            svg {
+                path {
+                    fill: #fff;
+                }
+            }
+        }
+
+        &:active {
+            background-color: darken(#9642d3, 8%);
+        }
+
+    }
+
+    &Add {
+        svg {
+            margin-right: 2px;
+        }
+
+        span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+
+    &Cart {
+        display: flex;
+        align-items: center;
+        line-height: 23px;
+        padding: 12px 25px;
+        background-color: rgb(202, 22, 142);
+
+        svg {
+            margin-right: 8px;
+            margin-bottom: 1px;
+        }
+
+        span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        &:hover {
+            background-color: rgb(202, 22, 142);
+        }
+    }
+
+    &Circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        padding: 0;
+        border-width: 2px;
+    }
+}
+
+.cart {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    padding: 12px 25px;
+    background-color: rgb(202, 22, 142);
+
+    svg {
+        margin-right: 8px;
+        margin-bottom: 1px;
+    }
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    &:hover {
+        background-color: rgb(202, 22, 142);
+    }
+}

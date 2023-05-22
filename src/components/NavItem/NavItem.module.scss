@@ -1,0 +1,56 @@
+/* oswald-500 - latin */
+// @font-face {
+//     font-family: 'Oswald';
+//     src: url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.eot'); /* IE9 Compat Modes */
+//     src: url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+//          url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+//          url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.woff') format('woff'), /* Modern Browsers */
+//          url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+//          url('../../assets/fonts/oswald-v49-latin/oswald-v49-latin-500.svg') format('svg'); /* Legacy iOS */
+//     font-style: normal;
+//     font-weight: 500;     
+//   }
+
+.item {
+    position: relative;
+
+    font-family: 'Oswald', sans-serif;    
+    font-size: 20px;
+    letter-spacing: 1px;
+
+    color: white;
+    transition: color .2s ease-out;
+
+    &:hover {
+        color: #fcd20c;
+    }
+
+    &::before {
+        content: '';
+
+        display: block;
+        position: absolute;
+    
+        height: 2px;
+        width: 100%;
+        top: 100%;
+        left: 0;
+    
+        background-color: none;
+    
+        transition: background-color .2s ease-out;    
+    }
+
+    &:hover::before {
+        background-color: #fcd20c;
+    }
+
+    &Selected {
+        color: #fcd20c;
+
+        &::before {
+            background-color: #fcd20c;
+        }
+    } 
+}
+

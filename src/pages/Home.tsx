@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-import Categories from '../components/Categories';
-import ProductBlock from '../components/ProductBlock';
-import Sort from '../components/Sort';
-import '../scss/app.scss';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { fetchProducts } from '../redux/product/asyncActions';
-import { Status } from '../redux/product/types';
+import Categories from '../components/Categories/Categories';
+import ProductBlock from '../components/ProductBlock/ProductBlock';
+import Sort from '../components/Sort/Sort';
+import { Status } from '../core/constants/status';
+import { fetchProducts } from '../core/redux/product/asyncActions';
+import { useAppDispatch, useAppSelector } from '../core/redux/store';
+import '../style/index.scss';
 
 function Home() {
   const { items, status } = useAppSelector((state) => state.product);
@@ -21,6 +21,9 @@ function Home() {
       types={product.specifications.types}
       sizes={product.specifications.sizes}
       price={product.price}
+      description={
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque nam enim possimus.'
+      }
     />
   ));
 
@@ -35,11 +38,13 @@ function Home() {
   return (
     <>
       <div className="container">
+        <div className="menu-title">
+          <span>Наше Меню</span>
+        </div>
         <div className="content__top">
           <Categories />
-          <Sort />
+          {/* <Sort /> */}
         </div>
-        <div className="content__title">Все пиццы</div>
         {status === Status.ERROR ? (
           <div>Ошибочка вышла...</div>
         ) : (

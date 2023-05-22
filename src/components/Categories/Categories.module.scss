@@ -1,0 +1,42 @@
+.categories {
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 60px;
+        gap: 10px;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            background-color: #f9f9f9;
+            padding: 10px 30px 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out;
+            
+            &:hover {
+                background-color: darken(#f9f9f9, 2%);
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+            }
+
+            span {
+                font-family: 'Oswald', sans-serif;    
+                font-size: 20px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            &.Active {
+                background-color: #f3aaf3;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,16 @@
+@mixin font-face($family, $path, $weight: normal, $style: normal){
+    @font-face {
+        font-family: $family;
+
+        src: url('#{$path}.eot');
+        src: url('#{$path}.eot?#iefix') format('embedded-opentype')
+        url('#{$path}.woff') format('woff')
+        url("#{$path}.woff2") format("woff2") /* Modern Browsers */
+        url('#{$path}.ttf') format('truetype')
+        url('#{$path}.svg') format('svg')
+        url("#{$path}.otf") format("opentype"); /* Open Type Font */
+
+        font-weight: $weight; 
+        font-style: $style;
+    }
+}

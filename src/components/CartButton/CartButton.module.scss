@@ -1,0 +1,33 @@
+.container {
+    margin-right: 30px;
+}
+
+.cart {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    padding: 12px 25px;
+    background-color: rgb(202, 22, 142);
+
+    svg {
+        margin-right: 8px;
+        margin-bottom: 1px;
+    }
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    &:hover {
+        background-color: rgb(202, 22, 142);
+    }
+}
+
+.delimiter {
+    width: 1px;
+    height: 25px;
+    background-color: rgb(241, 240, 240);
+    margin-left: 14px;
+    margin-right: 14px;
+}
